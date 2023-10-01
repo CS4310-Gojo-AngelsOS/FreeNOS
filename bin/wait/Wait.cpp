@@ -21,6 +21,7 @@ Wait::~Wait()
 Wait::Result Wait::exec()
 {
 
+    // Initialized process ID
     int processID = 0;
 
     // Converts process ID into integer and checks if it is valid
@@ -31,6 +32,7 @@ Wait::Result Wait::exec()
         return IOError;
     }
 
+    // initialize status
     int status; 
 
     // Uses waitpid function to suspend execution
@@ -39,6 +41,6 @@ Wait::Result Wait::exec()
         ERROR("Failed to wait:" << strerror(errno));
         return IOError;
     }
-
+    
     return Success; 
 }
