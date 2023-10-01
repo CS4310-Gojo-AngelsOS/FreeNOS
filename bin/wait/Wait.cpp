@@ -4,7 +4,9 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include "Wait.h"
+
 
 Wait::Wait(int argc, char **argv)
     : POSIXApplication(argc, argv)
@@ -19,5 +21,15 @@ Wait::~Wait()
 
 Wait::Result Wait::exec()
 {
+    pid_t pid = 0;
    
+   // Convert input to pid
+ if ((pid = atoi(arguments().get("PID"))) <= 0)
+    {
+        ERROR("invalid pid `" << arguments().get("PID") << "'");
+        return InvalidArgument;
+    }
+
+
+
 }
