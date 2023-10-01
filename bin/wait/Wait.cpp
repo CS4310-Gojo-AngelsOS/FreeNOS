@@ -6,6 +6,7 @@
 #include <sys/wait.h>
 #include "Wait.h"
 
+
 Wait::Wait(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
