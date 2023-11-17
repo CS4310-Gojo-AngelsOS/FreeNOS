@@ -46,6 +46,15 @@ class Process
   friend class ProcessManager;
   friend class Scheduler;
 
+  private: 
+    u8 PriorityLevel=3; //Default priority level is 3
+  
+  public: 
+  // Method to retrieve the priority level
+  u8 GetPriority()const
+  { 
+    return PriorityLevel;
+  }
   public:
 
     /**
