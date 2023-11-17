@@ -85,8 +85,6 @@ class ProcessClient
      */
     ProcessID getParentID() const;
 
-    Result changePriority(const ProcessID proc, Address priority) const;
-
     /**
      * Get process information by its ID.
      *
@@ -123,6 +121,7 @@ class ProcessClient
      */
     ProcessID findProcess(const String program) const;
 
+    Result changePriority(const ProcessID proc, Address priority) const;
 
   private:
 

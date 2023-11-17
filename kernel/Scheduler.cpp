@@ -37,6 +37,7 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
+    // Enqueue the process based on its priority
      switch(proc->getPriority()) {
         case 1:
             m_queue_1.push(proc);
@@ -69,6 +70,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
+    // Dequeue the process based on its priority
      if(proc->getPriority() == (Priority)5)
     {
         Size count = m_queue.count();
@@ -150,6 +152,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
 
 Process * Scheduler::select()
 {
+    // Select a process from the highest priority queue with available processes
     if (m_queue.count() > 0)
     {
         Process *p = m_queue.pop();

@@ -135,7 +135,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         info->id    = proc->getID();
         info->state = proc->getState();
         info->parent = proc->getParent();
-        info->priorityLevel = proc ->getPriority();
+        info->priorityLevel = proc->getPriority();
         break;
 
     case WaitPID:
@@ -182,7 +182,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
     
     case SetPriority:
         Priority newP = (Priority) addr;
-        procs->requeueProcess(proc, newP, true);
+        procs->rescheduleProcess(proc, newP, true);
         return (API::Result) API::Success;
         break;
     }

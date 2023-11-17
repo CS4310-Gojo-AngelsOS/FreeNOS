@@ -108,14 +108,14 @@ ProcessClient::Result ProcessClient::changePriority(const ProcessID proc, Addres
     const API::Result results = ProcessCtl(proc, SetPriority, priority, 0);
 
     if(results == API::NotFound){
-        ERROR("PID not found"); 
+        ERROR("PID Not Found"); 
         return NotFound; 
     }
     else if(results == API::Success){
         return Success; 
     }
     else{
-        ERROR("Undefined error"); 
+        ERROR("Undefined Error"); 
         return NotFound; 
     }
 }

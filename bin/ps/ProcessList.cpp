@@ -26,7 +26,7 @@ ProcessList::ProcessList(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
     parser().setDescription("Output system process list");
-    parser().registerFlag('l', "Priority", "Show Priority Level");
+    parser().registerFlag('l', "priority", "Show Priority Level");
 }
 
 ProcessList::Result ProcessList::exec()
@@ -34,11 +34,11 @@ ProcessList::Result ProcessList::exec()
     const ProcessClient process;
     String out;
 
-    // Print header
+    // If raised the header returned will have the Priority included, if not it will return the default header.
      if(arguments().get("priority")) {
-        out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
-    } else {
         out << "ID  PARENT  USER GROUP STATUS     CMD                               PRIORITY\r\n";
+    } else {
+        out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
     }
 
     // Loop processes
@@ -47,20 +47,22 @@ ProcessList::Result ProcessList::exec()
         ProcessClient::Info info;
 
         const ProcessClient::Result result = process.processInfo(pid, info);
+
+        
         if (result == ProcessClient::Success)
         {
             DEBUG("PID " << pid << " state = " << *info.textState);
+            DEBUG("Priority Level for PID " << pid << "Priotiy =  " << info.kernelState.priorityLevel);
 
-            
-
-            // Output a line
+    
+            // if flag is raised the priority value will be returned if not, only the default header values are returned. 
             if (arguments().get("priority")) 
             {
                 char line[128];
                 snprintf(line, sizeof(line),
                         "%3d %7d %4d %5d %10s %32s\r\n",
                         pid, info.kernelState.parent,
-                        0, 0, *info.textState, *info.command);
+                        0, 0, *info.textState, *info.command, info.kernelState.priorityLevel);
                 out << line;
             } 
             else 
@@ -69,7 +71,7 @@ ProcessList::Result ProcessList::exec()
                     snprintf(line, sizeof(line),
                     "%3d %7d %4d %5d %10s %32s\r\n",
                     pid, info.kernelState.parent,
-                    0, 0, *info.textState, *info.command, info.kernelState.priorityLevel);
+                    0, 0, *info.textState, *info.command);
                 out << line;
             }
         }

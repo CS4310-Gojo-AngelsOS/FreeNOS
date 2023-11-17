@@ -10,10 +10,10 @@
 Renice::Renice(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
-    parser().setDescription("Changes process priority based on PID");
-    parser().registerPositional("Priority", "New priority for the process");
-    parser().registerPositional("PID", "PID of the changed process");
-    parser().registerFlag('n', "PRIORITY", "Changed process priority"); 
+    parser().setDescription("Change the priority process");
+    parser().registerPositional("Priority", "Change the priority level for to this level");
+    parser().registerPositional("PID", "Change the scheduling priority process");
+    parser().registerFlag('n', "PRIORITY", "Changed process priority level"); 
 }
 
 Renice::Result Renice::exec()
@@ -21,11 +21,11 @@ Renice::Result Renice::exec()
 
     const Vector<Argument *> & positionals = arguments().getPositionals();
 
-    //validates the priority level (Error if not between 1 and 5)
+    //Checks if the priority level is valid, if not return error
     Priority priority = atoi(*(positionals[0]->getValue()));
     if (priority < 1 || priority > 5)
     {
-        ERROR("Not Valid - priority level must be between 1 to 5");   
+        ERROR("Invalid, Failed to set priority for process");   
         return InvalidArgument;
     }
 

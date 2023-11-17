@@ -422,12 +422,12 @@ ProcessManager::Result ProcessManager::dequeueProcess(Process *proc, const bool 
     return Success;
 }
 
-ProcessManager::Result ProcessManager::requeueProcess(Process* proc, Priority level, const bool ignoreState)
+ProcessManager::Result ProcessManager::rescheduleProcess(Process* proc, Priority level, const bool ignoreState)
 {
     //dequeue
     if (m_scheduler->dequeue(proc, ignoreState) != Scheduler::Success)
     {
-        ERROR("process ID " << proc->getID() << " not removed from Scheduler");
+        ERROR("process ID " << proc->getID() << " Failed to remove from Scheduler");
         return IOError;
     }
 
@@ -436,7 +436,7 @@ ProcessManager::Result ProcessManager::requeueProcess(Process* proc, Priority le
     //enqueue
     if (m_scheduler->enqueue(proc, ignoreState) != Scheduler::Success)
     {
-        ERROR("process ID " << proc->getID() << " not added to Scheduler");
+        ERROR("process ID " << proc->getID() << " Failed to add to Scheduler");
         return IOError;
     }
 

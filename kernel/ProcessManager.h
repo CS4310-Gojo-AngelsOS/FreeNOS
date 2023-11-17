@@ -209,7 +209,7 @@ class ProcessManager
      */
     Process * current();
 
-    Result requeueProcess(Process* proc, Priority level, const bool ignoreState);
+    Result rescheduleProcess(Process* proc, Priority level, const bool ignoreState);
 
   private:
 
