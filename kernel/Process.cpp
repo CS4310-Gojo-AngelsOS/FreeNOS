@@ -268,10 +268,10 @@ bool Process::operator==(Process *proc)
     return proc->getID() == m_id;
 }
 
-Priority Process::getPriorityLevel(){
+Priority Process::getPriority(){
     return priorityLevel; 
 }
 
-void Process::setPriorityLevel(Priority priority) {
+void Process::setPriority(Priority priority) {
     priorityLevel = priority;
 }

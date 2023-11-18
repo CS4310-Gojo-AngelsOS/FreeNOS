@@ -37,7 +37,7 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
-     switch(proc->getPriorityLevel()) {
+     switch(proc->getPriority()) {
         case 1:
             m_queue_1.push(proc);
             break;
@@ -69,7 +69,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
-     if(proc->getPriorityLevel() == (Priority)5)
+     if(proc->getPriority() == (Priority)5)
     {
         Size count = m_queue.count();
 
@@ -83,7 +83,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             else
                 m_queue.push(p);
         }
-    } else if(proc->getPriorityLevel() == (Priority)4)
+    } else if(proc->getPriority() == (Priority)4)
     {
         Size count = m_queue_4.count();
 
@@ -98,7 +98,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 m_queue_4.push(p);
         }
     }
-    else if(proc->getPriorityLevel() == (Priority)3)
+    else if(proc->getPriority() == (Priority)3)
     {
         Size count = m_queue_3.count();
 
@@ -113,7 +113,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
                 m_queue_3.push(p);
         }
     }
-    else if(proc->getPriorityLevel() == (Priority)2)
+    else if(proc->getPriority() == (Priority)2)
     {
         Size count = m_queue_2.count();
 

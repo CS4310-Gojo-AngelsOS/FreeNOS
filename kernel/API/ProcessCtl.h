@@ -72,7 +72,8 @@ typedef struct ProcessInfo
     /** Defines the current state of the Process. */
     Process::State state;
 
-    Process::Priority priorityLevel;
+    /** Priority Level*/
+     __UINT8_TYPE__ priorityLevel;
 }
 ProcessInfo;
 

@@ -45,16 +45,7 @@ class Process
 {
   friend class ProcessManager;
   friend class Scheduler;
-
-  private: 
-    u8 PriorityLevel=3; //Default priority level is 3
   
-  public: 
-  // Method to retrieve the priority level
-  u8 GetPriority()const
-  { 
-    return PriorityLevel;
-  }
   public:
 
     /**
@@ -92,6 +83,10 @@ class Process
      */
     Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map);
 
+    __UINT8_TYPE__ getPriority();
+
+    void setPriority(__UINT8_TYPE__ priority);
+
     /**
      * Destructor function.
      */
@@ -110,10 +105,6 @@ class Process
      * @return Process ID of our parent.
      */
     ProcessID getParent() const;
-
-    __UINT8_TYPE__ getPriorityLevel();
-
-    void setPriorityLevel(__UINT8_TYPE__ priority); 
     
     /**
      * Get Wait ID.

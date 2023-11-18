@@ -431,7 +431,7 @@ ProcessManager::Result ProcessManager::requeueProcess(Process* proc, Priority le
         return IOError;
     }
 
-    proc->setPriorityLevel(level);
+    proc->setPriority(level);
 
     //enqueue
     if (m_scheduler->enqueue(proc, ignoreState) != Scheduler::Success)
