@@ -54,7 +54,7 @@ typedef enum ProcessOperation
     Stop,
     Resume,
     Reset,
-    GetPriority
+    SetPriority
 }
 ProcessOperation;
 

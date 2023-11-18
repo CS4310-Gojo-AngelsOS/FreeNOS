@@ -103,3 +103,19 @@ ProcessID ProcessClient::findProcess(const String program) const
         return ANY;
     }
 }
+
+ProcessClient::Result ProcessClient::changePriority(const ProcessID proc, Address priority) const {
+    const API::Result results = ProcessCtl(proc, SetPriority, priority, 0);
+
+    if(results == API::NotFound){
+        ERROR("PID not found"); 
+        return NotFound; 
+    }
+    else if(results == API::Success){
+        return Success; 
+    }
+    else{
+        ERROR("Undefined error"); 
+        return NotFound; 
+    }
+}

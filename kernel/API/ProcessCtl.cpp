@@ -180,8 +180,11 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         break;
 
     
-    case GetPriority:
-        return (API::Result) procs->current()->getPriorityLevel();
+    case SetPriority:
+        Priority newP = (Priority) addr;
+        procs->requeueProcess(proc, newP, true);
+        return (API::Result) API::Success;
+        break;
     }
 
     return API::Success;
@@ -204,7 +207,7 @@ Log & operator << (Log &log, ProcessOperation op)
         case EnterSleep: log.append("EnterSleep"); break;
         case Schedule:  log.append("Schedule"); break;
         case Wakeup:    log.append("Wakeup"); break;
-        case GetPriority: log.append("GetPriority"); break;
+        case SetPriority: log.append("SetPriority"); break;
         default:        log.append("???"); break;
     }
     return log;

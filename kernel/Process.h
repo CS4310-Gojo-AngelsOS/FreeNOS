@@ -80,13 +80,6 @@ class Process
         Stopped
     };
 
-    enum Priority 
-    {
-      min = 1,
-      defaultValue = 3,
-      max = 5
-    };
-
   public:
 
     /**
@@ -118,13 +111,10 @@ class Process
      */
     ProcessID getParent() const;
 
-    /**
-     * GetPriority Level
-     */
-    Priority getPriorityLevel();
+    __UINT8_TYPE__ getPriorityLevel();
 
-    Result setPriorityLevel(int priority);
-
+    void setPriorityLevel(__UINT8_TYPE__ priority); 
+    
     /**
      * Get Wait ID.
      */

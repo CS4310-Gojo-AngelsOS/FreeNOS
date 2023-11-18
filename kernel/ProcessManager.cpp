@@ -421,3 +421,28 @@ ProcessManager::Result ProcessManager::dequeueProcess(Process *proc, const bool 
 
     return Success;
 }
+
+ProcessManager::Result ProcessManager::requeueProcess(Process* proc, Priority level, const bool ignoreState)
+{
+    //dequeue
+    if (m_scheduler->dequeue(proc, ignoreState) != Scheduler::Success)
+    {
+        ERROR("process ID " << proc->getID() << " not removed from Scheduler");
+        return IOError;
+    }
+
+    proc->setPriorityLevel(level);
+
+    //enqueue
+    if (m_scheduler->enqueue(proc, ignoreState) != Scheduler::Success)
+    {
+        ERROR("process ID " << proc->getID() << " not added to Scheduler");
+        return IOError;
+    }
+
+    const Size countRemoved = m_sleepTimerQueue.remove(proc);
+    assert(countRemoved <= 1U);
+    (void) countRemoved;
+
+    return Success;
+}
