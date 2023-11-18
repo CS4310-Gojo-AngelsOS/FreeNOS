@@ -100,7 +100,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
             ERROR("failed to reset PID " << proc->getID());
             return API::IOError;
         }
-        break;
+        break;    
 
     case Wakeup:
         // increment wakeup counter and set process ready
@@ -135,6 +135,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         info->id    = proc->getID();
         info->state = proc->getState();
         info->parent = proc->getParent();
+        info->priorityLevel = proc ->getPriorityLevel();
         break;
 
     case WaitPID:
@@ -177,6 +178,10 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         if (procs->sleep((const Timer::Info *)addr) == ProcessManager::Success)
             procs->schedule();
         break;
+
+    
+    case GetPriority:
+        return (API::Result) procs->current()->getPriorityLevel();
     }
 
     return API::Success;
@@ -199,6 +204,7 @@ Log & operator << (Log &log, ProcessOperation op)
         case EnterSleep: log.append("EnterSleep"); break;
         case Schedule:  log.append("Schedule"); break;
         case Wakeup:    log.append("Wakeup"); break;
+        case GetPriority: log.append("GetPriority"); break;
         default:        log.append("???"); break;
     }
     return log;

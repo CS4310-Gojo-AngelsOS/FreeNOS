@@ -80,6 +80,13 @@ class Process
         Stopped
     };
 
+    enum Priority 
+    {
+      min = 1,
+      defaultValue = 3,
+      max = 5
+    };
+
   public:
 
     /**
@@ -110,6 +117,13 @@ class Process
      * @return Process ID of our parent.
      */
     ProcessID getParent() const;
+
+    /**
+     * GetPriority Level
+     */
+    Priority getPriorityLevel();
+
+    Result setPriorityLevel(int priority);
 
     /**
      * Get Wait ID.
@@ -294,6 +308,8 @@ class Process
 
     /** Channel for sending kernel events to the Process */
     MemoryChannel *m_kernelChannel;
+
+    Priority priorityLevel;
 };
 
 /**
